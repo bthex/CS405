@@ -18,11 +18,16 @@ T add_numbers(T const& start, T const& increment, unsigned long int const& steps
 {
     T result = start;
 
-    for (unsigned long int i = 0; i < steps; ++i)
-    {
-        result += increment;
-    }
+    for (unsigned long int i = 0; i < steps; ++i) {
 
+        // Checks each increment of add numbers
+        if (start + (increment * steps) > std::numeric_limits<T>::max()) {
+            std::cout << "Overflow found: " << +(result += start + (increment * steps)) << std::endl;
+        }
+        else {
+            result += increment;
+        }
+    }
     return result;
 }
 
@@ -41,14 +46,17 @@ T subtract_numbers(T const& start, T const& decrement, unsigned long int const& 
 {
     T result = start;
 
-    for (unsigned long int i = 0; i < steps; ++i)
-    {
-        result -= decrement;
+    for (unsigned long int i = 0; i < steps; ++i) {
+        // Checks each decrement of add numbers
+        if (start - (decrement * steps) < std::numeric_limits<T>::min()) {
+            std::cout << "Overflow found: " << +(result -= start - (decrement * steps)) << std::endl;
+        }
+        else {
+            result -= decrement;
+        }
     }
-
     return result;
 }
-
 
 //  NOTE:
 //    You will see the unary ('+') operator used in front of the variables in the test_XXX methods.
@@ -80,7 +88,7 @@ void test_overflow()
     const unsigned long int steps = 5;
     // how much will we add each step (result should be: start + (increment * steps))
     const T increment = std::numeric_limits<T>::max() / steps;
-    // whats our starting point
+    // What's our starting point
     const T start = 0;
 
     std::cout << "Overflow Test of Type = " << typeid(T).name() << std::endl;
@@ -121,7 +129,7 @@ void test_underflow()
     const unsigned long int steps = 5;
     // how much will we subtract each step (result should be: start - (increment * steps))
     const T decrement = std::numeric_limits<T>::max() / steps;
-    // whats our starting point
+    // What's our starting point
     const T start = std::numeric_limits<T>::max();
 
     std::cout << "Underflow Test of Type = " << typeid(T).name() << std::endl;
@@ -142,7 +150,7 @@ void do_overflow_tests(const std::string& star_line)
     std::cout << "*** Running Overflow Tests ***" << std::endl;
     std::cout << star_line << std::endl;
 
-    // Testing C++ primative times see: https://www.geeksforgeeks.org/c-data-types/
+    // Testing C++ primitive times see: https://www.geeksforgeeks.org/c-data-types/
     // signed integers
     test_overflow<char>();
     test_overflow<wchar_t>();
@@ -167,10 +175,10 @@ void do_overflow_tests(const std::string& star_line)
 void do_underflow_tests(const std::string& star_line)
 {
     std::cout << std::endl << star_line << std::endl;
-    std::cout << "*** Running Undeflow Tests ***" << std::endl;
+    std::cout << "*** Running Underflow Tests ***" << std::endl;
     std::cout << star_line << std::endl;
 
-    // Testing C++ primative times see: https://www.geeksforgeeks.org/c-data-types/
+    // Testing C++ primitive times see: https://www.geeksforgeeks.org/c-data-types/
     // signed integers
     test_underflow<char>();
     test_underflow<wchar_t>();
