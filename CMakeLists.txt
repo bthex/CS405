@@ -18,3 +18,19 @@ add_executable(BufferOverflow
         module2/BufferOverflow/PythonWithExploit.py
         module2/BufferOverflow/PythonWithoutExploit.py
         module2/BufferOverflow/BufferOverflow.cpp)
+
+# Module 4 Exceptions
+add_executable(Exceptions
+        module4/Exceptions/Exceptions.cpp
+)
+
+# Module 4 Unit Test
+
+# 'lib' is the folder with Google Test sources
+add_subdirectory(module4/UnitTest/lib)
+include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+add_executable(Google_Tests_run
+        module4/UnitTest/UnitTest.cpp
+)
+# 'Google_Tests_run' is the target name
+target_link_libraries(Google_Tests_run gtest gtest_main)
