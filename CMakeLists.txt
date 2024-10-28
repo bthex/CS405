@@ -34,3 +34,10 @@ add_executable(Google_Tests_run
 )
 # 'Google_Tests_run' is the target name
 target_link_libraries(Google_Tests_run gtest gtest_main)
+
+# Module 5 Encryption
+configure_file( module5/Encryption/inputdatafile.txt
+        ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
+add_executable(Encryption
+        module5/Encryption/Encryption.cpp
+)
